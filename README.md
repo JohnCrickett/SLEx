@@ -3,7 +3,7 @@ To launch the service run:
 `python reportservice.py`
 
 You can then view thr reports by visiting:
-`http://localhost:5000/report/<id>/`  
+`http://localhost:5000/report/<id>`  
   
 The report will be returned in either JSON, XML or PDF based on the HTTP header
   
