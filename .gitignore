@@ -87,3 +87,12 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# PyCharm project settings
+.idea
+
+# docs folder
+doc/
+
+# generated pdfs during test
+*.pdf
