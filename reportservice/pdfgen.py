@@ -9,15 +9,15 @@ def generate_pdf(data):
     """
     output = cStringIO.StringIO()
 
-    # TODO ths should all use a template and some nice
-    # table formatting
+    # TODO ths should all use a template and some nice table formatting
     p = canvas.Canvas(output)
-    p.drawString(200, 800, 'The Report')
-    p.drawString(400, 780, 'Organisation: ' + data['organization'])
-    p.drawString(400, 765, 'Reported: ' + data['reported_at'])
-    p.drawString(400, 750, 'Created: ' + data['created_at'])
+    vertical_position = 800
+    p.drawString(200, vertical_position, 'The Report')
+    p.drawString(400, vertical_position - 20, 'Organisation: ' + data['organization'])
+    p.drawString(400, vertical_position - 35, 'Reported: ' + data['reported_at'])
+    p.drawString(400, vertical_position - 50, 'Created: ' + data['created_at'])
 
-    y = 750 - 45
+    y = vertical_position - 95
     for item in data['inventory']:
         p.drawString(200, y, item['name'] + ': ' + item['price'])
         y -= 15
