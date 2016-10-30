@@ -8,11 +8,11 @@ You can then view thr reports by visiting:
 The report will be returned in either JSON, XML or PDF based on the HTTP header
   
 for example using curl:  
-JSON: `curl -I --header "Accept:application/json" http://localhost:5000/report/1`
+JSON: `curl -i --header "Accept:application/json" http://localhost:5000/report/1`
 
-XML: `curl -I --header "Accept:application/xml" http://localhost:5000/report/1`
+XML: `curl -i --header "Accept:application/xml" http://localhost:5000/report/1`
  
-PDF: `curl -I --header "Accept:application/pdf" http://localhost:5000/report/1`
+PDF: `curl -i --header "Accept:application/pdf" http://localhost:5000/report/1`
 
 
 # Test Setup
