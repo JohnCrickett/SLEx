@@ -1,4 +1,5 @@
 import cStringIO
+from datetime import datetime
 
 from reportlab.pdfgen import canvas
 
@@ -22,8 +23,10 @@ def generate_pdf(data):
     vertical_position = VERTICAL_START
     p.drawString(HORIZONTAL_CENTRE, vertical_position, 'The Report')
     p.drawString(HORIZONTAL_RIGHT, vertical_position - 20, 'Organisation: ' + data['organization'])
-    p.drawString(HORIZONTAL_RIGHT, vertical_position - 35, 'Reported: ' + data['reported_at'])
-    p.drawString(HORIZONTAL_RIGHT, vertical_position - 50, 'Created: ' + data['created_at'])
+    p.drawString(HORIZONTAL_RIGHT, vertical_position - 35, 'Reported: ' +
+                 datetime.strptime(data['reported_at'], '%Y-%m-%d').strftime('%d %B %Y'))
+    p.drawString(HORIZONTAL_RIGHT, vertical_position - 50, 'Created: ' +
+                 datetime.strptime(data['created_at'], '%Y-%m-%d').strftime('%d %B %Y'))
 
     y = vertical_position - 95
     for item in data['inventory']:
