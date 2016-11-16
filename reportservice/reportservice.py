@@ -65,6 +65,7 @@ def report(id):
             return response
         else:
             abort(204) # no content for this format
+        database.close()
     else:
         abort(503) # service is unavailable
 
