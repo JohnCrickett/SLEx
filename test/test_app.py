@@ -66,8 +66,8 @@ def test_app_pdf():
     assert len(response.data) > 0
 
     pdf = response.data
-    assert pdf # TODO this just verifies we got something, ideally should verify it is a PDF with the
-               # expected contents
+    assert pdf  # TODO this just verifies we got something,
+                # ideally should verify it is a PDF with the expected contents
 
 
 def test_app_invalid_report():

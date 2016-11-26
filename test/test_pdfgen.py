@@ -1,6 +1,7 @@
 import env
 from reportservice.pdfgen import generate_pdf
 
+
 def test_pdfgen():
     data = {
           "created_at": "2015-04-22",
@@ -26,4 +27,4 @@ def test_pdfgen():
           "reported_at": "2015-04-21"
         }
     out = generate_pdf(data)
-    assert out # TODO should validate PDF
+    assert out  # TODO should validate PDF

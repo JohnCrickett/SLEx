@@ -1,6 +1,7 @@
 import json
 
-from flask import abort, Flask, jsonify, render_template, request, Response, make_response
+from flask import abort, Flask, jsonify, render_template, \
+                  request, Response, make_response
 
 from database import Database
 from pdfgen import generate_pdf
@@ -19,6 +20,7 @@ def index():
     """
     return render_template('index.html')
 
+
 @app.route('/report/<id>')
 def report(id):
     """
@@ -30,8 +32,8 @@ def report(id):
     """
     try:
         id = int(id)
-    except ValueError, e:
-        abort(400) # bad request
+    except ValueError:
+        abort(400)  # bad request
 
     database = Database(app.config['DB_HOST'],
                         app.config['DB_NAME'],
@@ -52,23 +54,20 @@ def report(id):
             return response
         elif request.headers['Accept'] == 'application/xml':
             xml = render_template('report.xml',
-                                  organization = obj['organization'],
-                                  created = obj['created_at'],
-                                  reported = obj['reported_at'],
-                                  items = obj['inventory'])
+                                  organization=obj['organization'],
+                                  created=obj['created_at'],
+                                  reported=obj['reported_at'],
+                                  items=obj['inventory'])
             return Response(xml, status=200, mimetype='text/xml')
         elif request.headers['Accept'] == 'application/pdf':
             pdf = generate_pdf(obj)
             response = make_response(pdf)
-            response.headers['Content-Disposition'] = "attachment; filename='report.pdf"
+            response.headers['Content-Disposition'] = \
+                "attachment; filename='report.pdf"
             response.mimetype = 'application/pdf'
             return response
         else:
-            abort(204) # no content for this format
+            abort(204)  # no content for this format
         database.close()
     else:
-        abort(503) # service is unavailable
-
-
-
-
+        abort(503)  # service is unavailable

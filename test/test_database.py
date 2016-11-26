@@ -16,49 +16,51 @@ class TestDatabase(object):
         db_password = 'LetMeIn'
         self._database = Database(db_host, db_name, db_username, db_password)
 
-
     def teardown_method(self):
         self._database.close()
-
 
     def test_database_connection(self):
         connected = self._database.connect()
         assert connected
 
-
     def test_execute_valid(self):
         connected = self._database.connect()
-        result = self._database.execute("select * from information_schema.tables")
+        assert connected
+        result = \
+            self._database.execute("select * from information_schema.tables")
         assert result
 
     def test_execute_invalid(self):
         connected = self._database.connect()
+        assert connected
         result = self._database.execute("select * from unknown_table")
-        assert result == False
-
+        assert result is False
 
     def test_fetch_one_row(self):
         connected = self._database.connect()
-        result = self._database.execute("select * from information_schema.tables")
+        assert connected
+        result = \
+            self._database.execute("select * from information_schema.tables")
         assert result
         result = self._database.fetch_one_row()
         assert result
-
 
     def test_fetch_one_row_no_result(self):
         connected = self._database.connect()
-        result = self._database.execute("select id, type from reports where id = '0'")
+        assert connected
+        result = \
+            self._database.execute("select id, type from reports where id='0'")
         assert result
         result = self._database.fetch_one_row()
-        assert result == None
-
+        assert result is None
 
     def test_fetch_all_rows(self):
         connected = self._database.connect()
+        assert connected
         sql = ("select column_name, data_type, character_maximum_length "
                "from INFORMATION_SCHEMA.COLUMNS "
                "where table_name = 'reports';"
-              )
+               )
         result = self._database.execute(sql)
         assert result
         results = self._database.fetch_all_rows()

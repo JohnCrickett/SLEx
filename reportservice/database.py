@@ -2,6 +2,7 @@ import psycopg2
 import psycopg2.extras
 from psycopg2 import ProgrammingError
 
+
 class Database(object):
     """Database class to abstract underlying database platform and driver
 
@@ -18,20 +19,19 @@ class Database(object):
         self._cursor = None
         self._conn = None
 
-
     def connect(self):
         """Connect to the database specified in the constructor"""
         try:
             self._conn = psycopg2.connect(host=self._host,
                                           database=self._db,
-                                          user = self._username,
+                                          user=self._username,
                                           password=self._password
                                           )
-            self._cursor = self._conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            self._cursor = \
+                self._conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
             return True
-        except Exception, e:
+        except Exception:
             return False
-
 
     def close(self):
         """Close the connection to the database,
@@ -42,7 +42,6 @@ class Database(object):
         if self._conn:
             self._conn.close()
 
-
     def execute(self, query):
         """Execute a SQL query against the current database
 
@@ -52,22 +51,24 @@ class Database(object):
         """
         try:
             self._cursor.execute(query)
-        except ProgrammingError, e:
+        except ProgrammingError:
             return False
         return True
 
-
     def fetch_one_row(self):
-        """Fetch the next row from the database, a query should have been executed first"""
+        """Fetch the next row from the database,
+        a query should have been executed first
+        """
         try:
             return self._cursor.fetchone()
         except ProgrammingError:
             pass
         return {}
 
-
     def fetch_all_rows(self):
-        """Fecth all rows from the database, a query should have been executed first"""
+        """Fecth all rows from the database,
+        a query should have been executed first
+        """
         try:
             return self._cursor.fetchall()
         except ProgrammingError:
